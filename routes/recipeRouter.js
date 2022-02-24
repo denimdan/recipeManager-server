@@ -42,12 +42,21 @@ recipeRouter.route('/:recipeId')
         Recipe.findByIdAndUpdate(req.params.recipeId, {
             $set: req.body
         }, { new: true })
-        .then(recipe => {
-            res.statusCode = 200;
-            res.setHeader('Content-Type', 'application/json');
-            res.json(recipe)
-        })
-        .catch(err => next(err));
+            .then(recipe => {
+                res.statusCode = 200;
+                res.setHeader('Content-Type', 'application/json');
+                res.json(recipe)
+            })
+            .catch(err => next(err));
+    })
+    .delete((req, res, next) => {
+        Recipe.findByIdAndDelete(req.params.recipeId)
+            .then(response => {
+                res.statusCode = 200;
+                res.setHeader('Content-Type', 'application/json');
+                res.json(response);
+            })
+            .catch(err => next(err));
     })
 
 
